@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☕ เพิ่มสินค้า - Coffee Shop</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #764ba2;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+            font-size: 1.05em;
+        }
+        
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        button,
+        .btn-cancel {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+        }
+        
+        button:hover {
+            background: #764ba2;
+        }
+        
+        .btn-cancel {
+            background: #95a5a6;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-cancel:hover {
+            background: #7f8c8d;
+        }
+        
+        .info {
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            color: #555;
+            border-left: 4px solid #667eea;
+        }
+        
+        @media (max-width: 600px) {
+            .form-container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>☕ เพิ่มสินค้ากาแฟใหม่</h1>
+            
+            <div class="info">
+                <strong>💡 หมายเหตุ:</strong> กรอกข้อมูลสินค้าให้ครบทุกช่อง
+            </div>
+            
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">ชื่อสินค้า *</label>
+                    <input type="text" id="name" name="name" required placeholder="เช่น Iced Latte">
+                </div>
+                
+                <div class="form-group">
+                    <label for="price">ราคา (บาท) *</label>
+                    <input type="number" id="price" name="price" required step="0.01" min="0" placeholder="เช่น 60">
+                </div>
+                
+                <div class="form-group">
+                    <label for="image">ลิงค์รูปภาพ (URL)</label>
+                    <input type="text" id="image" name="image" placeholder="https://example.com/image.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="stock">จำนวนสต๊อก *</label>
+                    <input type="number" id="stock" name="stock" required min="0" placeholder="เช่น 20">
+                </div>
+                
+                <div class="form-group">
+                    <label for="category">หมวดหมู่ *</label>
+                    <select id="category" name="category_id" required>
+                        <option value="">-- เลือกหมวดหมู่ --</option>
+                        {% for category in categories %}
+                            <option value="{{ category['id'] }}">{{ category['name'] }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit">✓ บันทึก</button>
+                    <a href="{{ url_for('index') }}" class="btn-cancel">✕ ยกเลิก</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
